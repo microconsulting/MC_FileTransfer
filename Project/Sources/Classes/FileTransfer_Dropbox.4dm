@@ -1,11 +1,25 @@
+property onData : Object
+property _return; _Path : Text
+property _timeout : Integer
+
 Class constructor()
 	This:C1470.onData:=New object:C1471("text"; "")
+	This:C1470._return:=Char:C90(10)
+	var $path : Text
 	If (Is macOS:C1572)
-		This:C1470._return:=Char:C90(10)
-		This:C1470._Path:="dbxcli"
+		$path:=Get 4D folder:C485(Current resources folder:K5:16)+"dropbox"+Folder separator:K24:12+"dbxcli"
+		If (Test path name:C476($path)=Is a document:K24:1)
+			This:C1470._Path:=Convert path system to POSIX:C1106($path)
+		Else 
+			This:C1470._Path:="dbxcli"
+		End if 
 	Else 
-		This:C1470._return:=Char:C90(10)  //Char(13)+Char(10)
-		This:C1470._Path:="dbxcli.exe"
+		$path:=Get 4D folder:C485(Current resources folder:K5:16)+"dropbox"+Folder separator:K24:12+"dbxcli.exe"
+		If (Test path name:C476($path)=Is a document:K24:1)
+			This:C1470._Path:=Convert path system to POSIX:C1106($path)
+		Else 
+			This:C1470._Path:="dbxcli.exe"
+		End if 
 	End if 
 	This:C1470._timeout:=0
 	
@@ -13,7 +27,9 @@ Class constructor()
 	
 	//MARK: FileTransfer
 Function getDirectoryListing($targetpath : Text)->$success : Object
-	If ($targetpath="")
+	var $url : Text
+	
+	If (Length:C16($targetpath)=0)
 		$targetpath:="/"
 	End if 
 	$url:="ls -l "+$targetpath
@@ -23,11 +39,14 @@ Function getDirectoryListing($targetpath : Text)->$success : Object
 		This:C1470._parseDirListing($success)
 	End if 
 	
-Function upload($sourcepath : Text; $targetpath : Text)->$success : Object
 	//$sourcepath just file name for local directory, else full path in POSIX syntax
 	// targetpath is full remote path (starting with /, ending with file name
-	ASSERT:C1129($sourcepath#""; "source path must not be empty")
-	ASSERT:C1129($targetpath#""; "target path must not be empty")
+Function upload($sourcepath : Text; $targetpath : Text)->$success : Object
+	var $url : Text
+	var $oldtimeout : Integer
+	
+	ASSERT:C1129(Length:C16($sourcepath)>0; "source path must not be empty")
+	ASSERT:C1129(Length:C16($targetpath)>0; "target path must not be empty")
 	
 	$url:="put "+$sourcepath+" "+$targetpath
 	$oldtimeout:=This:C1470._timeout
@@ -37,11 +56,14 @@ Function upload($sourcepath : Text; $targetpath : Text)->$success : Object
 	$success:=This:C1470._runWorker($url)
 	This:C1470._timeout:=$oldtimeout
 	
-Function download($sourcepath : Text; $targetpath : Text)->$success : Object
 	//$sourcepath just file name for local directory, else full path in POSIX syntax
 	// targetpath is full remote path (starting with /, ending with file name
-	ASSERT:C1129($sourcepath#""; "source path must not be empty")
-	ASSERT:C1129($targetpath#""; "target path must not be empty")
+Function download($sourcepath : Text; $targetpath : Text)->$success : Object
+	var $url : Text
+	var $oldtimeout : Integer
+	
+	ASSERT:C1129(Length:C16($sourcepath)>0; "source path must not be empty")
+	ASSERT:C1129(Length:C16($targetpath)>0; "target path must not be empty")
 	
 	$url:="get "+$sourcepath+" "+$targetpath
 	$oldtimeout:=This:C1470._timeout
@@ -51,43 +73,47 @@ Function download($sourcepath : Text; $targetpath : Text)->$success : Object
 	$success:=This:C1470._runWorker($url)
 	This:C1470._timeout:=$oldtimeout
 	
-Function createDirectory($targetpath : Text)->$success : Object
-	ASSERT:C1129($targetpath#""; "target path must not be empty")
-	$url:="mkdir "+$targetpath
-	$success:=This:C1470._runWorker($url)
+Function createDirectory($targetpath : Text) : Object
+	ASSERT:C1129(Length:C16($targetpath)>0; "target path must not be empty")
+	return This:C1470._runWorker("mkdir "+$targetpath)
 	
-Function deleteDirectory($targetpath : Text; $force : Boolean)->$success : Object
-	ASSERT:C1129($targetpath#""; "target path must not be empty")
+Function deleteDirectory($targetpath : Text; $force : Boolean) : Object
+	var $url : Text
+	
+	ASSERT:C1129(Length:C16($targetpath)>0; "target path must not be empty")
 	If ($force)
 		$url:="rm -f "+$targetpath
 	Else 
 		$url:="rm "+$targetpath
 	End if 
-	$success:=This:C1470._runWorker($url)
+	return This:C1470._runWorker($url)
 	
-Function deleteFile($targetpath : Text)->$success : Object
+Function deleteFile($targetpath : Text) : Object
 	// same as deleteDirectory
-	ASSERT:C1129($targetpath#""; "target path must not be empty")
-	$url:="rm "+$targetpath
-	$success:=This:C1470._runWorker($url)
+	ASSERT:C1129(Length:C16($targetpath)>0; "target path must not be empty")
+	return This:C1470._runWorker("rm "+$targetpath)
 	
-Function renameFile($sourcepath : Text; $targetpath : Text)->$success : Object
-	ASSERT:C1129($sourcepath#""; "source path must not be empty")
-	ASSERT:C1129($targetpath#""; "target path must not be empty")
+Function renameFile($sourcepath : Text; $targetpath : Text) : Object
+	var $url : Text
+	
+	ASSERT:C1129(Length:C16($sourcepath)>0; "source path must not be empty")
+	ASSERT:C1129(Length:C16($targetpath)>0; "target path must not be empty")
 	$url:="mv "+$sourcepath+" "+$targetpath
-	$success:=This:C1470._runWorker($url)
+	return This:C1470._runWorker($url)
 	
-Function moveFile($sourcepath : Text; $targetpath : Text)->$success : Object
-	$success:=This:C1470.renameFile($sourcepath; $targetpath)
+Function moveFile($sourcepath : Text; $targetpath : Text) : Object
+	return This:C1470.renameFile($sourcepath; $targetpath)
 	
-Function copyFile($sourcepath : Text; $targetpath : Text)->$success : Object
-	ASSERT:C1129($sourcepath#""; "source path must not be empty")
-	ASSERT:C1129($targetpath#""; "target path must not be empty")
+Function copyFile($sourcepath : Text; $targetpath : Text) : Object
+	var $url : Text
+	
+	ASSERT:C1129(Length:C16($sourcepath)>0; "source path must not be empty")
+	ASSERT:C1129(Length:C16($targetpath)>0; "target path must not be empty")
 	$url:="cp "+$sourcepath+" "+$targetpath
-	$success:=This:C1470._runWorker($url)
+	return This:C1470._runWorker($url)
 	
 Function executeCommand($command : Text)->$success : Object
-	ASSERT:C1129($command#""; "command must not be empty")
+	ASSERT:C1129(Length:C16($command)>0; "command must not be empty")
 	$success:=This:C1470._runWorker($command)
 	
 	//MARK: Settings
@@ -111,7 +137,7 @@ Function setTimeout($timeout : Integer)
 Function setAsyncMode($async : Boolean)
 	This:C1470._async:=$async
 	
-Function enableStopButton($enable : Object)
+Function enableStopButton($enable : Object)  // needs to be a shared object
 	This:C1470._enableStopButton:=$enable
 	
 Function stop()
@@ -132,6 +158,11 @@ Function wait($max : Integer)
 	
 	// MARK: Internal helper calls
 Function _parseDirListing($success : Object)
+	var $col : Collection
+	var $posSize; $posLast; $posPath : Integer
+	var $line : Text
+	var $diritem : Object
+	
 	$col:=Split string:C1554(String:C10($success.data); This:C1470._return; sk ignore empty strings:K86:1)
 	If (($col.length>0) && ($col[0]="Revision@"))
 		$success.list:=New collection:C1472
@@ -157,6 +188,11 @@ Function _parseDirListing($success : Object)
 	End if 
 	
 Function _runWorker($para : Text)->$result : Object
+	var $workerpara : cs:C1710.SystemWorkerProperties
+	var $path; $command; $old : Text
+	var $worker : Object
+	var $waittimeout; $pos : Integer
+	
 	If (This:C1470._Callback#Null:C1517)
 		$workerpara:=cs:C1710.SystemWorkerProperties.new("dropbox"; This:C1470.onData; This:C1470._Callback; This:C1470._CallbackID; This:C1470._enableStopButton)
 	Else 

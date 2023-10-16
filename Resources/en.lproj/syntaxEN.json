@@ -1,39 +1,105 @@
 {
 	"_method_": {},
-	"SystemWorkerProperties": {
-		"new()": {
-			"Syntax": "**.new**(*type* : Text; *data* : Object; *callback* : 4D.Function; *callbackID* : Text; *stopButton* : Object)",
-			"Params": [
-				[
-					"type",
-					"Text",
-					"->"
+	"cs.FileTransfer": {
+		"SystemWorkerProperties": {
+			"new()": {
+				"Syntax": "**.new**( *type* : Text; *data* : Object; *callback* : 4D.Function; *callbackID* : Text; *stopButton* : Object )",
+				"Params": [
+					[
+						"type",
+						"Text",
+						"->"
+					],
+					[
+						"data",
+						"Object",
+						"->"
+					],
+					[
+						"callback",
+						"4D.Function",
+						"->"
+					],
+					[
+						"callbackID",
+						"Text",
+						"->"
+					],
+					[
+						"stopButton",
+						"Object",
+						"->"
+					]
 				],
-				[
-					"data",
-					"Object",
-					"->"
-				],
-				[
-					"callback",
-					"4D.Function",
-					"->"
-				],
-				[
-					"callbackID",
-					"Text",
-					"->"
-				],
-				[
-					"stopButton",
-					"Object",
-					"->"
-				]
-			],
-			"Summary": ""
+				"Summary": ""
+			}
 		},
+		"FileTransfer_rclone": {
+			"new()": {
+				"Syntax": "**.new**( *configname* : Text )",
+				"Params": [
+					[
+						"configname",
+						"Text",
+						"->"
+					]
+				],
+				"Summary": ""
+			}
+		},
+		"FileTransfer_curl": {
+			"new()": {
+				"Syntax": "**.new**( *hostname* : Text; *username* : Text; *password* : Text; *protocol* : Text )",
+				"Params": [
+					[
+						"hostname",
+						"Text",
+						"->"
+					],
+					[
+						"username",
+						"Text",
+						"->"
+					],
+					[
+						"password",
+						"Text",
+						"->"
+					],
+					[
+						"protocol",
+						"Text",
+						"->"
+					]
+				],
+				"Summary": ""
+			}
+		},
+		"FileTransfer_Dropbox": {
+			"new()": {
+				"Syntax": "**.new**()",
+				"Params": [],
+				"Summary": ""
+			}
+		},
+		"FileTransfer_GDrive": {
+			"new()": {
+				"Syntax": "**.new**()",
+				"Params": [],
+				"Summary": ""
+			}
+		},
+		"_Build": {
+			"new()": {
+				"Syntax": "**.new**()",
+				"Params": [],
+				"Summary": ""
+			}
+		}
+	},
+	"SystemWorkerProperties": {
 		"onTerminate()": {
-			"Syntax": "**.onTerminate**(*systemworker* : Object; *data* : Object)",
+			"Syntax": "**.onTerminate**( *systemworker* : Object; *data* : Object )",
 			"Params": [
 				[
 					"systemworker",
@@ -49,7 +115,7 @@
 			"Summary": ""
 		},
 		"onDataError()": {
-			"Syntax": "**.onDataError**(*systemworker* : Object; *data* : Object)",
+			"Syntax": "**.onDataError**( *systemworker* : Object; *data* : Object )",
 			"Params": [
 				[
 					"systemworker",
@@ -65,7 +131,7 @@
 			"Summary": ""
 		},
 		"onData()": {
-			"Syntax": "**.onData**(*systemworker* : Object; *data* : Object)",
+			"Syntax": "**.onData**( *systemworker* : Object; *data* : Object )",
 			"Params": [
 				[
 					"systemworker",
@@ -79,37 +145,419 @@
 				]
 			],
 			"Summary": ""
+		},
+		"SharedForProgressBar": {
+			"Syntax": "SharedForProgressBar : Object"
+		},
+		"stopbutton": {
+			"Syntax": "stopbutton : Object"
+		},
+		"data": {
+			"Syntax": "data : Object"
+		},
+		"hideWindow": {
+			"Syntax": "hideWindow : Boolean"
+		},
+		"callback": {
+			"Syntax": "callback : 4D.Function"
+		},
+		"dataType": {
+			"Syntax": "dataType : Text"
+		},
+		"encoding": {
+			"Syntax": "encoding : Text"
+		},
+		"callbackID": {
+			"Syntax": "callbackID : Text"
+		},
+		"type": {
+			"Syntax": "type : Text"
 		}
 	},
-	"FileTransfer_curl": {
-		"new()": {
-			"Syntax": "**.new**(*hostname* : Text; *username* : Text; *password* : Text; *protocol* : Text)",
+	"FileTransfer_rclone": {
+		"wait()": {
+			"Syntax": "**.wait**( *max* : Integer )",
 			"Params": [
 				[
-					"hostname",
+					"max",
+					"Integer",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"status()": {
+			"Syntax": "**.status**()->status : Object",
+			"Params": [
+				[
+					"status",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"syncUp()": {
+			"Syntax": "**.syncUp**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"sourcepath",
 					"Text",
 					"->"
 				],
 				[
-					"username",
+					"targetpath",
 					"Text",
 					"->"
 				],
 				[
-					"password",
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"createDirectory()": {
+			"Syntax": "**.createDirectory**( *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"targetpath",
 					"Text",
 					"->"
 				],
 				[
-					"protocol",
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"stop()": {
+			"Syntax": "**.stop**()",
+			"Params": [],
+			"Summary": ""
+		},
+		"version()": {
+			"Syntax": "**.version**()->data : Object",
+			"Params": [
+				[
+					"data",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"enableStopButton()": {
+			"Syntax": "**.enableStopButton**( *enable* : Object )",
+			"Params": [
+				[
+					"enable",
+					"Object",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"setAsyncMode()": {
+			"Syntax": "**.setAsyncMode**( *async* : Boolean )",
+			"Params": [
+				[
+					"async",
+					"Boolean",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"useCallback()": {
+			"Syntax": "**.useCallback**( *callback* : 4D.Function; *ID* : Text )",
+			"Params": [
+				[
+					"callback",
+					"4D.Function",
+					"->"
+				],
+				[
+					"ID",
 					"Text",
 					"->"
 				]
 			],
 			"Summary": ""
 		},
+		"setPrefix()": {
+			"Syntax": "**.setPrefix**( *prefix* : Text )",
+			"Params": [
+				[
+					"prefix",
+					"Text",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"setPath()": {
+			"Syntax": "**.setPath**( *path* : Text )",
+			"Params": [
+				[
+					"path",
+					"Text",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"setMaxTime()": {
+			"Syntax": "**.setMaxTime**( *seconds* : Real )",
+			"Params": [
+				[
+					"seconds",
+					"Real",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"validate()": {
+			"Syntax": "**.validate**()->success : Object",
+			"Params": [
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"executeCommand()": {
+			"Syntax": "**.executeCommand**( *command* : Text )->success : Object",
+			"Params": [
+				[
+					"command",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"copyFile()": {
+			"Syntax": "**.copyFile**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"sourcepath",
+					"Text",
+					"->"
+				],
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"deleteDirectory()": {
+			"Syntax": "**.deleteDirectory**( *targetpath* : Text; *force* : Boolean )->success : Object",
+			"Params": [
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"force",
+					"Boolean",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"moveFile()": {
+			"Syntax": "**.moveFile**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"sourcepath",
+					"Text",
+					"->"
+				],
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"obscure()": {
+			"Syntax": "**.obscure**( *password* : Text )->obscured : Text",
+			"Params": [
+				[
+					"password",
+					"Text",
+					"->"
+				],
+				[
+					"obscured",
+					"Text",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"deleteFile()": {
+			"Syntax": "**.deleteFile**( *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"download()": {
+			"Syntax": "**.download**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"sourcepath",
+					"Text",
+					"->"
+				],
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"renameFile()": {
+			"Syntax": "**.renameFile**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"sourcepath",
+					"Text",
+					"->"
+				],
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"syncDown()": {
+			"Syntax": "**.syncDown**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"sourcepath",
+					"Text",
+					"->"
+				],
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"upload()": {
+			"Syntax": "**.upload**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"sourcepath",
+					"Text",
+					"->"
+				],
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"setTimeout()": {
+			"Syntax": "**.setTimeout**( *timeout* : Integer )",
+			"Params": [
+				[
+					"timeout",
+					"Integer",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"getDirectoryListing()": {
+			"Syntax": "**.getDirectoryListing**( *targetpath* : Text )->success : Object",
+			"Params": [
+				[
+					"targetpath",
+					"Text",
+					"->"
+				],
+				[
+					"success",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		}
+	},
+	"FileTransfer_curl": {
 		"wait()": {
-			"Syntax": "**.wait**(*max* : Integer)",
+			"Syntax": "**.wait**( *max* : Integer )",
 			"Params": [
 				[
 					"max",
@@ -131,7 +579,7 @@
 			"Summary": ""
 		},
 		"executeCommand()": {
-			"Syntax": "**.executeCommand**(*command* : Text)->success : Object",
+			"Syntax": "**.executeCommand**( *command* : Text ) : Object",
 			"Params": [
 				[
 					"command",
@@ -139,7 +587,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -147,7 +595,7 @@
 			"Summary": ""
 		},
 		"deleteFile()": {
-			"Syntax": "**.deleteFile**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.deleteFile**( *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -163,7 +611,7 @@
 			"Summary": ""
 		},
 		"download()": {
-			"Syntax": "**.download**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.download**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -184,7 +632,7 @@
 			"Summary": ""
 		},
 		"upload()": {
-			"Syntax": "**.upload**(*sourcepath* : Text; *targetpath* : Text; *append* : Boolean)->success : Object",
+			"Syntax": "**.upload**( *sourcepath* : Text; *targetpath* : Text; *append* : Boolean )->success : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -210,7 +658,7 @@
 			"Summary": ""
 		},
 		"useCallback()": {
-			"Syntax": "**.useCallback**(*callback* : 4D.Function; *ID* : Text)",
+			"Syntax": "**.useCallback**( *callback* : 4D.Function; *ID* : Text )",
 			"Params": [
 				[
 					"callback",
@@ -237,7 +685,7 @@
 			"Summary": ""
 		},
 		"setRange()": {
-			"Syntax": "**.setRange**(*range* : Text)",
+			"Syntax": "**.setRange**( *range* : Text )",
 			"Params": [
 				[
 					"range",
@@ -248,7 +696,7 @@
 			"Summary": ""
 		},
 		"enableStopButton()": {
-			"Syntax": "**.enableStopButton**(*enable* : Object)",
+			"Syntax": "**.enableStopButton**( *enable* : Object )",
 			"Params": [
 				[
 					"enable",
@@ -259,7 +707,7 @@
 			"Summary": ""
 		},
 		"renameFile()": {
-			"Syntax": "**.renameFile**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.renameFile**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -280,7 +728,7 @@
 			"Summary": ""
 		},
 		"enableProgressData()": {
-			"Syntax": "**.enableProgressData**(*enable* : Boolean)",
+			"Syntax": "**.enableProgressData**( *enable* : Boolean )",
 			"Params": [
 				[
 					"enable",
@@ -291,7 +739,7 @@
 			"Summary": ""
 		},
 		"setPath()": {
-			"Syntax": "**.setPath**(*path* : Text)",
+			"Syntax": "**.setPath**( *path* : Text )",
 			"Params": [
 				[
 					"path",
@@ -302,7 +750,7 @@
 			"Summary": ""
 		},
 		"setActiveMode()": {
-			"Syntax": "**.setActiveMode**(*active* : Boolean; *IP* : Text)",
+			"Syntax": "**.setActiveMode**( *active* : Boolean; *IP* : Text )",
 			"Params": [
 				[
 					"active",
@@ -318,7 +766,7 @@
 			"Summary": ""
 		},
 		"getDirectoryListing()": {
-			"Syntax": "**.getDirectoryListing**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.getDirectoryListing**( *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -334,7 +782,7 @@
 			"Summary": ""
 		},
 		"setAutoCreateLocalDirectory()": {
-			"Syntax": "**.setAutoCreateLocalDirectory**(*auto* : Boolean)",
+			"Syntax": "**.setAutoCreateLocalDirectory**( *auto* : Boolean )",
 			"Params": [
 				[
 					"auto",
@@ -345,7 +793,7 @@
 			"Summary": ""
 		},
 		"setTimeout()": {
-			"Syntax": "**.setTimeout**(*timeout* : Integer)",
+			"Syntax": "**.setTimeout**( *timeout* : Integer )",
 			"Params": [
 				[
 					"timeout",
@@ -356,7 +804,7 @@
 			"Summary": ""
 		},
 		"setAsyncMode()": {
-			"Syntax": "**.setAsyncMode**(*async* : Boolean)",
+			"Syntax": "**.setAsyncMode**( *async* : Boolean )",
 			"Params": [
 				[
 					"async",
@@ -367,7 +815,7 @@
 			"Summary": ""
 		},
 		"deleteDirectory()": {
-			"Syntax": "**.deleteDirectory**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.deleteDirectory**( *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -383,7 +831,7 @@
 			"Summary": ""
 		},
 		"setCurlPrefix()": {
-			"Syntax": "**.setCurlPrefix**(*prefix* : Text)",
+			"Syntax": "**.setCurlPrefix**( *prefix* : Text )",
 			"Params": [
 				[
 					"prefix",
@@ -394,7 +842,7 @@
 			"Summary": ""
 		},
 		"setMaxTime()": {
-			"Syntax": "**.setMaxTime**(*seconds* : Real)",
+			"Syntax": "**.setMaxTime**( *seconds* : Real )",
 			"Params": [
 				[
 					"seconds",
@@ -416,7 +864,7 @@
 			"Summary": ""
 		},
 		"setConnectTimeout()": {
-			"Syntax": "**.setConnectTimeout**(*seconds* : Real)",
+			"Syntax": "**.setConnectTimeout**( *seconds* : Real )",
 			"Params": [
 				[
 					"seconds",
@@ -432,7 +880,7 @@
 			"Summary": ""
 		},
 		"createDirectory()": {
-			"Syntax": "**.createDirectory**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.createDirectory**( *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -448,7 +896,7 @@
 			"Summary": ""
 		},
 		"setAutoCreateRemoteDirectory()": {
-			"Syntax": "**.setAutoCreateRemoteDirectory**(*auto* : Boolean)",
+			"Syntax": "**.setAutoCreateRemoteDirectory**( *auto* : Boolean )",
 			"Params": [
 				[
 					"auto",
@@ -457,14 +905,12 @@
 				]
 			],
 			"Summary": ""
+		},
+		"onData": {
+			"Syntax": "onData : Object"
 		}
 	},
 	"FileTransfer_Dropbox": {
-		"new()": {
-			"Syntax": "**.new**()",
-			"Params": [],
-			"Summary": ""
-		},
 		"status()": {
 			"Syntax": "**.status**()->status : Object",
 			"Params": [
@@ -482,7 +928,7 @@
 			"Summary": ""
 		},
 		"enableStopButton()": {
-			"Syntax": "**.enableStopButton**(*enable* : Object)",
+			"Syntax": "**.enableStopButton**( *enable* : Object )",
 			"Params": [
 				[
 					"enable",
@@ -493,7 +939,7 @@
 			"Summary": ""
 		},
 		"setAsyncMode()": {
-			"Syntax": "**.setAsyncMode**(*async* : Boolean)",
+			"Syntax": "**.setAsyncMode**( *async* : Boolean )",
 			"Params": [
 				[
 					"async",
@@ -504,7 +950,7 @@
 			"Summary": ""
 		},
 		"useCallback()": {
-			"Syntax": "**.useCallback**(*callback* : 4D.Function; *ID* : Text)",
+			"Syntax": "**.useCallback**( *callback* : 4D.Function; *ID* : Text )",
 			"Params": [
 				[
 					"callback",
@@ -520,7 +966,7 @@
 			"Summary": ""
 		},
 		"setPath()": {
-			"Syntax": "**.setPath**(*path* : Text)",
+			"Syntax": "**.setPath**( *path* : Text )",
 			"Params": [
 				[
 					"path",
@@ -531,7 +977,7 @@
 			"Summary": ""
 		},
 		"deleteDirectory()": {
-			"Syntax": "**.deleteDirectory**(*targetpath* : Text; *force* : Boolean)->success : Object",
+			"Syntax": "**.deleteDirectory**( *targetpath* : Text; *force* : Boolean ) : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -544,7 +990,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -563,7 +1009,7 @@
 			"Summary": ""
 		},
 		"moveFile()": {
-			"Syntax": "**.moveFile**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.moveFile**( *sourcepath* : Text; *targetpath* : Text ) : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -576,7 +1022,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -584,7 +1030,7 @@
 			"Summary": ""
 		},
 		"renameFile()": {
-			"Syntax": "**.renameFile**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.renameFile**( *sourcepath* : Text; *targetpath* : Text ) : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -597,7 +1043,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -605,7 +1051,7 @@
 			"Summary": ""
 		},
 		"createDirectory()": {
-			"Syntax": "**.createDirectory**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.createDirectory**( *targetpath* : Text ) : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -613,7 +1059,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -621,7 +1067,7 @@
 			"Summary": ""
 		},
 		"copyFile()": {
-			"Syntax": "**.copyFile**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.copyFile**( *sourcepath* : Text; *targetpath* : Text ) : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -634,7 +1080,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -642,7 +1088,7 @@
 			"Summary": ""
 		},
 		"download()": {
-			"Syntax": "**.download**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.download**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -663,7 +1109,7 @@
 			"Summary": ""
 		},
 		"executeCommand()": {
-			"Syntax": "**.executeCommand**(*command* : Text)->success : Object",
+			"Syntax": "**.executeCommand**( *command* : Text )->success : Object",
 			"Params": [
 				[
 					"command",
@@ -679,7 +1125,7 @@
 			"Summary": ""
 		},
 		"deleteFile()": {
-			"Syntax": "**.deleteFile**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.deleteFile**( *targetpath* : Text ) : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -687,7 +1133,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -695,7 +1141,7 @@
 			"Summary": ""
 		},
 		"upload()": {
-			"Syntax": "**.upload**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.upload**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -716,7 +1162,7 @@
 			"Summary": ""
 		},
 		"wait()": {
-			"Syntax": "**.wait**(*max* : Integer)",
+			"Syntax": "**.wait**( *max* : Integer )",
 			"Params": [
 				[
 					"max",
@@ -727,7 +1173,7 @@
 			"Summary": ""
 		},
 		"setTimeout()": {
-			"Syntax": "**.setTimeout**(*timeout* : Integer)",
+			"Syntax": "**.setTimeout**( *timeout* : Integer )",
 			"Params": [
 				[
 					"timeout",
@@ -738,7 +1184,7 @@
 			"Summary": ""
 		},
 		"getDirectoryListing()": {
-			"Syntax": "**.getDirectoryListing**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.getDirectoryListing**( *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -752,14 +1198,12 @@
 				]
 			],
 			"Summary": ""
+		},
+		"onData": {
+			"Syntax": "onData : Object"
 		}
 	},
 	"FileTransfer_GDrive": {
-		"new()": {
-			"Syntax": "**.new**()",
-			"Params": [],
-			"Summary": ""
-		},
 		"status()": {
 			"Syntax": "**.status**()->status : Object",
 			"Params": [
@@ -772,7 +1216,7 @@
 			"Summary": ""
 		},
 		"createDirectory()": {
-			"Syntax": "**.createDirectory**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.createDirectory**( *targetpath* : Text ) : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -780,7 +1224,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -793,7 +1237,7 @@
 			"Summary": ""
 		},
 		"useCallback()": {
-			"Syntax": "**.useCallback**(*callback* : 4D.Function; *ID* : Text)",
+			"Syntax": "**.useCallback**( *callback* : 4D.Function; *ID* : Text )",
 			"Params": [
 				[
 					"callback",
@@ -809,7 +1253,7 @@
 			"Summary": ""
 		},
 		"setPath()": {
-			"Syntax": "**.setPath**(*path* : Text)",
+			"Syntax": "**.setPath**( *path* : Text )",
 			"Params": [
 				[
 					"path",
@@ -820,7 +1264,7 @@
 			"Summary": ""
 		},
 		"executeCommand()": {
-			"Syntax": "**.executeCommand**(*command* : Text)->success : Object",
+			"Syntax": "**.executeCommand**( *command* : Text )->success : Object",
 			"Params": [
 				[
 					"command",
@@ -836,7 +1280,7 @@
 			"Summary": ""
 		},
 		"enableStopButton()": {
-			"Syntax": "**.enableStopButton**(*enable* : Object)",
+			"Syntax": "**.enableStopButton**( *enable* : Object )",
 			"Params": [
 				[
 					"enable",
@@ -858,7 +1302,7 @@
 			"Summary": ""
 		},
 		"moveFile()": {
-			"Syntax": "**.moveFile**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.moveFile**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -879,7 +1323,7 @@
 			"Summary": ""
 		},
 		"deleteDirectory()": {
-			"Syntax": "**.deleteDirectory**(*targetpath* : Text; *force* : Boolean)->success : Object",
+			"Syntax": "**.deleteDirectory**( *targetpath* : Text; *force* : Boolean ) : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -892,7 +1336,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -900,7 +1344,7 @@
 			"Summary": ""
 		},
 		"copyFile()": {
-			"Syntax": "**.copyFile**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.copyFile**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -921,7 +1365,7 @@
 			"Summary": ""
 		},
 		"setAsyncMode()": {
-			"Syntax": "**.setAsyncMode**(*async* : Boolean)",
+			"Syntax": "**.setAsyncMode**( *async* : Boolean )",
 			"Params": [
 				[
 					"async",
@@ -932,7 +1376,7 @@
 			"Summary": ""
 		},
 		"renameFile()": {
-			"Syntax": "**.renameFile**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.renameFile**( *sourcepath* : Text; *targetpath* : Text ) : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -945,7 +1389,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -953,7 +1397,7 @@
 			"Summary": ""
 		},
 		"export()": {
-			"Syntax": "**.export**(*sourcepath* : Text; *targetpath* : Text; *sourceID* : Text; *mime* : Text)->success : Object",
+			"Syntax": "**.export**( *sourcepath* : Text; *targetpath* : Text; *sourceID* : Text; *mime* : Text ) : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -976,7 +1420,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -984,7 +1428,7 @@
 			"Summary": ""
 		},
 		"download()": {
-			"Syntax": "**.download**(*sourcepath* : Text; *targetpath* : Text; *sourceID* : Text; *sourceQuery* : Text)->success : Object",
+			"Syntax": "**.download**( *sourcepath* : Text; *targetpath* : Text; *sourceID* : Text; *sourceQuery* : Text ) : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -1007,7 +1451,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -1015,7 +1459,7 @@
 			"Summary": ""
 		},
 		"deleteFile()": {
-			"Syntax": "**.deleteFile**(*targetpath* : Text)->success : Object",
+			"Syntax": "**.deleteFile**( *targetpath* : Text ) : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -1023,7 +1467,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -1031,7 +1475,7 @@
 			"Summary": ""
 		},
 		"getDirectoryListing()": {
-			"Syntax": "**.getDirectoryListing**(*targetpath* : Text; *ID* : Text; *max* : Integer)->success : Object",
+			"Syntax": "**.getDirectoryListing**( *targetpath* : Text; *ID* : Text; *max* : Integer )->success : Object",
 			"Params": [
 				[
 					"targetpath",
@@ -1057,7 +1501,7 @@
 			"Summary": ""
 		},
 		"import()": {
-			"Syntax": "**.import**(*sourcepath* : Text; *targetpath* : Text; *mime* : Text)->success : Object",
+			"Syntax": "**.import**( *sourcepath* : Text; *targetpath* : Text; *mime* : Text ) : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -1075,7 +1519,7 @@
 					"->"
 				],
 				[
-					"success",
+					"",
 					"Object",
 					"<-"
 				]
@@ -1083,7 +1527,7 @@
 			"Summary": ""
 		},
 		"upload()": {
-			"Syntax": "**.upload**(*sourcepath* : Text; *targetpath* : Text)->success : Object",
+			"Syntax": "**.upload**( *sourcepath* : Text; *targetpath* : Text )->success : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -1104,7 +1548,7 @@
 			"Summary": ""
 		},
 		"wait()": {
-			"Syntax": "**.wait**(*max* : Integer)",
+			"Syntax": "**.wait**( *max* : Integer )",
 			"Params": [
 				[
 					"max",
@@ -1115,7 +1559,7 @@
 			"Summary": ""
 		},
 		"setTimeout()": {
-			"Syntax": "**.setTimeout**(*timeout* : Integer)",
+			"Syntax": "**.setTimeout**( *timeout* : Integer )",
 			"Params": [
 				[
 					"timeout",
@@ -1124,16 +1568,14 @@
 				]
 			],
 			"Summary": ""
+		},
+		"onData": {
+			"Syntax": "onData : Object"
 		}
 	},
 	"_Build": {
-		"new()": {
-			"Syntax": "**.new**()",
-			"Params": [],
-			"Summary": ""
-		},
 		"Notarize()": {
-			"Syntax": "**.Notarize**(*zipfilepath* : Text)->error : Object",
+			"Syntax": "**.Notarize**( *zipfilepath* : Text )->error : Object",
 			"Params": [
 				[
 					"zipfilepath",
@@ -1160,7 +1602,7 @@
 			"Summary": ""
 		},
 		"Build()": {
-			"Syntax": "**.Build**(*PathToSettings* : Text)->error : Object",
+			"Syntax": "**.Build**( *PathToSettings* : Text )->error : Object",
 			"Params": [
 				[
 					"PathToSettings",
@@ -1176,7 +1618,7 @@
 			"Summary": ""
 		},
 		"Zip()": {
-			"Syntax": "**.Zip**(*sourcepath* : Text; *targetpath* : Text)->error : Object",
+			"Syntax": "**.Zip**( *sourcepath* : Text; *targetpath* : Text )->error : Object",
 			"Params": [
 				[
 					"sourcepath",
@@ -1197,7 +1639,7 @@
 			"Summary": ""
 		},
 		"Compile()": {
-			"Syntax": "**.Compile**(*options* : Object)->error : Object",
+			"Syntax": "**.Compile**( *options* : Object )->error : Object",
 			"Params": [
 				[
 					"options",

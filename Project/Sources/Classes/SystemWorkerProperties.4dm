@@ -1,4 +1,9 @@
-Class constructor($type : Text; $data : Object; $callback : 4D:C1709.Function; $callbackID : Text; $stopButton : Boolean)
+property type; encoding; dataType; callbackID; _return : Text
+property hideWindow : Boolean
+property callback : 4D:C1709.Function
+property data; stopbutton; SharedForProgressBar : Object
+
+Class constructor($type : Text; $data : Object; $callback : 4D:C1709.Function; $callbackID : Text; $stopButton : Object)
 	This:C1470.type:=$type
 	This:C1470.encoding:="UTF-8"
 	This:C1470.dataType:="text"
@@ -22,7 +27,22 @@ Class constructor($type : Text; $data : Object; $callback : 4D:C1709.Function; $
 	This:C1470.SharedForProgressBar:=New shared object:C1526("ID"; 0; "Stop"; False:C215; "EnableButton"; This:C1470.stopbutton)
 	
 Function onData($systemworker : Object; $data : Object)
-	This:C1470.data.text+=$data.data
+	var $pos; $progress : Integer
+	
+	If ($data.data#Null:C1517)
+		This:C1470.data.text+=String:C10($data.data)
+	End if 
+	
+	If (This:C1470.type="rclone")
+		$pos:=Position:C15("%"; $data.data; *)
+		If ($pos>0)
+			$progress:=Num:C11(Substring:C12($data.data; $pos-3; 3))
+			If ($progress#0)
+				CALL WORKER:C1389("FileTransferProgress"; This:C1470.callback.source; This:C1470.callbackID; $data.data; $progress; This:C1470.SharedForProgressBar)
+			End if 
+		End if 
+		This:C1470.data.text:=""
+	End if 
 	
 	// not needed for Curl 
 	// in Gdrive or Dropbox used when asking for Authentication
@@ -43,6 +63,9 @@ Function onData($systemworker : Object; $data : Object)
 	End if 
 	
 Function onDataError($systemworker : Object; $data : Object)
+	var $pos; $progress : Integer
+	var $message : Text
+	
 	// called when data is received from curl or dropbox to handle progress bar
 	
 	// check for stop button in progress bar
@@ -82,13 +105,24 @@ Function onDataError($systemworker : Object; $data : Object)
 		End if 
 	End if 
 	
+	
 Function onTerminate($systemworker : Object; $data : Object)
-	CALL WORKER:C1389("FileTransferProgress"; This:C1470.callback.source; This:C1470.callbackID; ""; 100; This:C1470.SharedForProgressBar)
+	If (This:C1470.callback#Null:C1517)
+		CALL WORKER:C1389("FileTransferProgress"; This:C1470.callback.source; This:C1470.callbackID; ""; 100; This:C1470.SharedForProgressBar)
+	End if 
 	//This._createFile("onTerminate"; $data.data)
-	
-	
 	
 Function _createFile($title : Text; $textBody : Text)
 	// debug only
 	TEXT TO DOCUMENT:C1237(Get 4D folder:C485(Current resources folder:K5:16)+$title+".txt"; $textBody)
+	
+Function _trim($text : Text)->$result : Text
+	$result:=$text
+	While (Substring:C12($result; 1; 1)=" ")
+		$result:=Substring:C12($result; 2)
+	End while 
+	While (Substring:C12($result; Length:C16($result); 1)=" ")
+		$result:=Substring:C12($result; 1; Length:C16($result)-1)
+	End while 
+	
 	

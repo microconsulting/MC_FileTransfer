@@ -3,17 +3,23 @@
 // url like ftp.4D.com or ftp.4d.com:1234
 // if you use ftps or sftp, also modify the last parameter (protocol) in .new() below
 // don't add the protocol to the hostname, don't use https://xxx or ftp://xxx
+
+var $ftp : cs:C1710.FileTransfer_curl
+var $credentialspath; $credentialsfile; $source; $answer; $error; $progressid; $progressid2; $target : Text
+var $folder : 4D:C1709.Folder
+var $credentials; $result; $result2; $checkstop; $checkstop2; $status; $status2 : Object
+var $list : Collection
+
 $credentialspath:=Get 4D folder:C485(Database folder:K5:14)
 $folder:=Folder:C1567($credentialspath; fk platform path:K87:2)
 $credentialsfile:=$folder.parent.file("credentials.txt").getText()
 $credentials:=JSON Parse:C1218($credentialsfile)
-If (True:C214)
+If (False:C215)
 	$credentials.url:="192.168.10.54:3421"
 	// $credentials.user:="myself"
 	// $credentials.password:="notmypass"
 End if 
 
-var $ftp : cs:C1710.FileTransfer_curl
 $ftp:=cs:C1710.FileTransfer_curl.new($credentials.url; $credentials.user; $credentials.pass; "ftp")
 //$ftp.setPath("/opt/homebrew/opt/curl/bin/curl")
 //$ftp.setPath("C:\\Users\\thomas.DE\\Documents\\4D\\Komponenten\\curl.exe")
@@ -34,8 +40,6 @@ If (False:C215)
 		$error:=$result.error
 	End if 
 End if 
-
-
 
 If (False:C215)
 	$source:=System folder:C487(Desktop:K41:16)+"test2.txt"

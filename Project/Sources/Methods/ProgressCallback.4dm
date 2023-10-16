@@ -1,9 +1,13 @@
 //%attributes = {}
-#DECLARE($ID : Text; $message : Text; $value : Integer; $sharedForProgressBar : Object)
 // called from cs.FileTransfer if callback is set via .useCallback()
 
 // $ID is set through code - $message comes from curl
 // shared object to pass progress ID back/forth and to share stop button result
+
+#DECLARE($ID : Text; $message : Text; $value : Integer; $sharedForProgressBar : Object)
+
+var $ProgressBarID : Integer
+var $message2 : Text
 
 $ProgressBarID:=$sharedForProgressBar.ID
 
@@ -43,5 +47,6 @@ If ($ProgressBarID#0)
 			End if 
 		Else 
 			Progress SET PROGRESS($ProgressBarID; $value/100)
+			Progress SET MESSAGE($ProgressBarID; $message)
 	End case 
 End if 

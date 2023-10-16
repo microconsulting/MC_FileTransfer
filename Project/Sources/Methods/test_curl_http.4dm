@@ -1,4 +1,7 @@
 //%attributes = {}
+var $source; $target; $answer; $progressid : Text
+var $result; $checkstop : Object
+
 If (False:C215)
 	var $ftp : cs:C1710.FileTransfer_curl
 	$ftp:=cs:C1710.FileTransfer_curl.new("www.4d.com"; ""; ""; "https")
@@ -54,7 +57,7 @@ If (True:C214)  // download with progress, stop button
 	$ftp.enableStopButton($checkstop)
 	$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
 	
-	$source:="/Products/4D_v19R3/Installers/4D_v19_R3_Mac.dmg"
+	$source:="/Products/4D_v19R5/Installers/4D_v19_R5_Mac.dmg"
 	$target:=System folder:C487(Desktop:K41:16)+"4d.dmg"
 	$target:=Convert path system to POSIX:C1106($target)
 	$ftp.setCurlPrefix("--location")  // follow 301 or 302
