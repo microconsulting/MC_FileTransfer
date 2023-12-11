@@ -1,5 +1,17 @@
 {
-	"_method_": {},
+	"_method_": {
+		"SET_PROGRESS_CALLBACK": {
+			"Syntax": "**SET_PROGRESS_CALLBACK**( *progressCallback* : 4D.Function )",
+			"Params": [
+				[
+					"progressCallback",
+					"4D.Function",
+					"->"
+				]
+			],
+			"Summary": ""
+		}
+	},
 	"cs.FileTransfer": {
 		"SystemWorkerProperties": {
 			"new()": {
