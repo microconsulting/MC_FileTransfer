@@ -94,7 +94,7 @@ If (False:C215)
 	$source:=Convert path system to POSIX:C1106($source)
 	
 	$progressid:="Upload 4D.dmg"
-	$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+	$ftp.useCallback(GetProgressCallback; $progressid)
 	$ftp.setAsyncMode(False:C215)  // default is false, no need to set
 	$ftp.setTimeout(300)  // 5 minutes for 1 GB upload
 	$checkstop:=New shared object:C1526("stop"; False:C215)
@@ -116,7 +116,7 @@ If (False:C215)
 	// $ftp.setCurlPrefix("--limit-rate 25M")  // make it slow for testing - limiting bandwidth
 	
 	$progressid:="upload folder"
-	$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+	$ftp.useCallback(GetProgressCallback; $progressid)
 	$ftp.setAsyncMode(False:C215)  // default is false, no need to set
 	$checkstop:=New shared object:C1526("stop"; False:C215)
 	$ftp.enableStopButton($checkstop)
@@ -139,7 +139,7 @@ If (True:C214)
 	$source:="/Master_Class/"
 	
 	$progressid:="sync folder"
-	$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+	$ftp.useCallback(GetProgressCallback; $progressid)
 	$ftp.setAsyncMode(False:C215)  // default is false, no need to set
 	$ftp.setTimeout(300)  // 5 minutes for 1 GB upload
 	$checkstop:=New shared object:C1526("stop"; False:C215)

@@ -4,49 +4,49 @@
 // $ID is set through code - $message comes from curl
 // shared object to pass progress ID back/forth and to share stop button result
 
-#DECLARE($ID : Text; $message : Text; $value : Integer; $sharedForProgressBar : Object)
+//#DECLARE($ID : Text; $message : Text; $value : Integer; $sharedForProgressBar : Object)
 
-var $ProgressBarID : Integer
-var $message2 : Text
+//var $ProgressBarID : Integer
+//var $message2 : Text
 
-$ProgressBarID:=$sharedForProgressBar.ID
+//$ProgressBarID:=$sharedForProgressBar.ID
 
-If (($ProgressBarID=0) && ($value#100))
-	$ProgressBarID:=Progress New
-	Use ($sharedForProgressBar)
-		$sharedForProgressBar.ID:=$ProgressBarID
-	End use 
-	Progress SET TITLE($ProgressBarID; $ID)
-	
-	// check if we want stop, if yes, add stop button
-	If ($sharedForProgressBar.EnableButton#Null:C1517)
-		Progress SET BUTTON ENABLED($ProgressBarID; True:C214)
-	End if 
-End if 
+//If (($ProgressBarID=0) && ($value#100))
+//$ProgressBarID:=Progress New
+//Use ($sharedForProgressBar)
+//$sharedForProgressBar.ID:=$ProgressBarID
+//End use 
+//Progress SET TITLE($ProgressBarID; $ID)
 
-If ($ProgressBarID#0)
-	If (Progress Stopped($ProgressBarID))  // only if stop button is enabled
-		Use ($sharedForProgressBar)
-			$sharedForProgressBar.Stop:=True:C214
-			Use ($sharedForProgressBar.EnableButton)
-				$sharedForProgressBar.EnableButton.stop:=True:C214
-			End use 
-		End use 
-	End if 
-	
-	Case of 
-		: ($value=100)
-			Progress QUIT($ProgressBarID)
-			Use ($sharedForProgressBar)
-				$sharedForProgressBar.ID:=0
-			End use 
-		: ($value<0)
-			$message2:=Replace string:C233($message; " "; "")  // ignore totally empty messages, happens with gdrive
-			If ($message2#"")
-				Progress SET MESSAGE($ProgressBarID; $message)
-			End if 
-		Else 
-			Progress SET PROGRESS($ProgressBarID; $value/100)
-			Progress SET MESSAGE($ProgressBarID; $message)
-	End case 
-End if 
+//// check if we want stop, if yes, add stop button
+//If ($sharedForProgressBar.EnableButton#Null)
+//Progress SET BUTTON ENABLED($ProgressBarID; True)
+//End if 
+//End if 
+
+//If ($ProgressBarID#0)
+//If (Progress Stopped($ProgressBarID))  // only if stop button is enabled
+//Use ($sharedForProgressBar)
+//$sharedForProgressBar.Stop:=True
+//Use ($sharedForProgressBar.EnableButton)
+//$sharedForProgressBar.EnableButton.stop:=True
+//End use 
+//End use 
+//End if 
+
+//Case of 
+//: ($value=100)
+//Progress QUIT($ProgressBarID)
+//Use ($sharedForProgressBar)
+//$sharedForProgressBar.ID:=0
+//End use 
+//: ($value<0)
+//$message2:=Replace string($message; " "; "")  // ignore totally empty messages, happens with gdrive
+//If ($message2#"")
+//Progress SET MESSAGE($ProgressBarID; $message)
+//End if 
+//Else 
+//Progress SET PROGRESS($ProgressBarID; $value/100)
+//Progress SET MESSAGE($ProgressBarID; $message)
+//End case 
+//End if 

@@ -58,7 +58,7 @@ If (False:C215)
 End if 
 
 If (True:C214)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); "ProgressCallback")
+	$ftp.useCallback(GetProgressCallback; "ProgressCallback")
 	$source:=System folder:C487(Desktop:K41:16)+"4d.dmg"
 	$source:=Convert path system to POSIX:C1106($source)
 	$target:="/Firma/test/test2.dmg"
@@ -69,7 +69,7 @@ If (True:C214)
 End if 
 
 If (False:C215)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); "ProgressCallback")
+	$ftp.useCallback(GetProgressCallback; "ProgressCallback")
 	$target:=System folder:C487(Desktop:K41:16)+"result.pdf"
 	$target:=Convert path system to POSIX:C1106($target)
 	$source:=""
@@ -81,7 +81,7 @@ If (False:C215)
 End if 
 
 If (False:C215)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); "ProgressCallback")
+	$ftp.useCallback(GetProgressCallback; "ProgressCallback")
 	$target:=System folder:C487(Desktop:K41:16)+"result.pdf"
 	$target:=Convert path system to POSIX:C1106($target)
 	$source:=""
@@ -93,7 +93,7 @@ If (False:C215)
 End if 
 
 If (False:C215)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); "ProgressCallback")
+	$ftp.useCallback(GetProgressCallback; "ProgressCallback")
 	$target:=System folder:C487(Desktop:K41:16)+"result.pdf"
 	$target:=Convert path system to POSIX:C1106($target)
 	$source:="/Firma/test/Test2.pdf"
@@ -105,7 +105,7 @@ End if
 
 
 If (False:C215)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); "upload pdf")
+	$ftp.useCallback(GetProgressCallback; "upload pdf")
 	$ftp.setAsyncMode(True:C214)
 	
 	$source:=System folder:C487(Desktop:K41:16)+"Heap.pdf"
@@ -130,7 +130,7 @@ If (True:C214)  // export
 	$progressid:="export slide show"
 	$checkstop:=New shared object:C1526("stop"; False:C215)
 	$ftp.enableStopButton($checkstop)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+	$ftp.useCallback(GetProgressCallback; $progressid)
 	$ftp.setAsyncMode(False:C215)
 	$target:=System folder:C487(Desktop:K41:16)+"result.pdf"
 	$target:=Convert path system to POSIX:C1106($target)

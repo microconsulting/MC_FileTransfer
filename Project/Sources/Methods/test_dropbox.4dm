@@ -26,7 +26,7 @@ If (False:C215)
 End if 
 
 If (False:C215)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); "ProgressCallback")
+	$ftp.useCallback(GetProgressCallback; "ProgressCallback")
 	$source:=System folder:C487(Desktop:K41:16)+"Heap.pdf"
 	$source:=Convert path system to POSIX:C1106($source)
 	$target:="/Firma/test2.pdf"
@@ -37,7 +37,7 @@ If (False:C215)
 End if 
 
 If (False:C215)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); "ProgressCallback")
+	$ftp.useCallback(GetProgressCallback; "ProgressCallback")
 	$target:=System folder:C487(Desktop:K41:16)+"result.pdf"
 	$target:=Convert path system to POSIX:C1106($target)
 	$source:="/Firma/test2.pdf"
@@ -49,7 +49,7 @@ End if
 
 
 If (False:C215)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); "uploading 4D.dmg")
+	$ftp.useCallback(GetProgressCallback; "uploading 4D.dmg")
 	$ftp.setAsyncMode(True:C214)
 	
 	$source:=System folder:C487(Desktop:K41:16)+"4d.dmg"
@@ -73,7 +73,7 @@ If (True:C214)
 	$progressid:="upload 4D.dmg"
 	$checkstop:=New shared object:C1526("stop"; False:C215)
 	$ftp.enableStopButton($checkstop)
-	$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+	$ftp.useCallback(GetProgressCallback; $progressid)
 	$ftp.setAsyncMode(False:C215)
 	$source:=System folder:C487(Desktop:K41:16)+"4d.dmg"
 	$source:=Convert path system to POSIX:C1106($source)

@@ -9,7 +9,7 @@ $ftp:=cs:C1710.FileTransfer_curl.new("download.4d.com"; ""; ""; "https")
 $progressid:="Download 4D.dmg"
 $checkstop:=New shared object:C1526("stop"; False:C215)
 $ftp.enableStopButton($checkstop)
-$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+$ftp.useCallback(GetProgressCallback; $progressid)
 
 $source:="/Products/4D_v19R5/Installers/4D_v19_R5_Mac.dmg"
 $target:=System folder:C487(Desktop:K41:16)+"4d.dmg"
@@ -48,7 +48,7 @@ $ftp.setPath($path)
 $progressid:="Download zipg"
 $checkstop:=New shared object:C1526("stop"; False:C215)
 $ftp.enableStopButton($checkstop)
-$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+$ftp.useCallback(GetProgressCallback; $progressid)
 
 $source:="/16-10_CookieBaseWebAuth.zip"
 $target:=System folder:C487(Desktop:K41:16)+"test.zip"

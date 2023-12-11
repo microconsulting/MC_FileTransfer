@@ -96,7 +96,7 @@ If (True:C214)
 	// $ftp.setCurlPrefix("--limit-rate 25M")  // make it slow for testing - limiting bandwidth
 	
 	$progressid:="Download 4D.dmg"
-	$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+	$ftp.useCallback(GetProgressCallback; $progressid)
 	$ftp.setAsyncMode(False:C215)  // default is false, no need to set
 	$checkstop:=New shared object:C1526("stop"; False:C215)
 	$ftp.enableStopButton($checkstop)
@@ -125,7 +125,7 @@ If (True:C214)  // download two in parallel
 	$ftp.setAutoCreateLocalDirectory(True:C214)
 	$ftp2.setAutoCreateRemoteDirectory(True:C214)
 	$ftp2.setAutoCreateLocalDirectory(True:C214)
-	$ftp2.useCallback(Formula:C1597(ProgressCallback); $progressid2)
+	$ftp2.useCallback(GetProgressCallback; $progressid2)
 	$ftp2.setAsyncMode(True:C214)
 	$checkstop:=New shared object:C1526("stop"; False:C215)
 	$ftp.enableStopButton($checkstop)
@@ -137,7 +137,7 @@ If (True:C214)  // download two in parallel
 	
 	$ftp.setCurlPrefix("--limit-rate 25M")
 	$progressid:="Download 4D.dmg"
-	$ftp.useCallback(Formula:C1597(ProgressCallback); $progressid)
+	$ftp.useCallback(GetProgressCallback; $progressid)
 	$ftp.setAsyncMode(True:C214)
 	
 	$target:=System folder:C487(Desktop:K41:16)+"neu"+Folder separator:K24:12
