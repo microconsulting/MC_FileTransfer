@@ -1,3 +1,5 @@
+var $L_ : Integer
+var $T_ : Text
 
 // MARK:-: DO NOT DELETE, MC SETUP AUTOMATED BUILDS
 If (Not:C34(Is compiled mode:C492))
