@@ -1586,11 +1586,16 @@
 		}
 	},
 	"_Build": {
-		"Notarize()": {
-			"Syntax": "**.Notarize**( *zipfilepath* : Text )->error : Object",
+		"ConvertImage()": {
+			"Syntax": "**.ConvertImage**( *pathTempImg* : Text; *pathFinalImg* : Text )->error : Object",
 			"Params": [
 				[
-					"zipfilepath",
+					"pathTempImg",
+					"Text",
+					"->"
+				],
+				[
+					"pathFinalImg",
 					"Text",
 					"->"
 				],
@@ -1602,9 +1607,62 @@
 			],
 			"Summary": ""
 		},
-		"Staple()": {
-			"Syntax": "**.Staple**()->error : Object",
+		"CreateImage()": {
+			"Syntax": "**.CreateImage**( *pathContent* : Text; *pathImg* : Text; *name* : Text )->error : Object",
 			"Params": [
+				[
+					"pathContent",
+					"Text",
+					"->"
+				],
+				[
+					"pathImg",
+					"Text",
+					"->"
+				],
+				[
+					"name",
+					"Text",
+					"->"
+				],
+				[
+					"error",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"getSourcePath()": {
+			"Syntax": "**.getSourcePath**()->source : Text",
+			"Params": [
+				[
+					"source",
+					"Text",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"StapleAndZip()": {
+			"Syntax": "**.StapleAndZip**()->error : Object",
+			"Params": [
+				[
+					"error",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"Notarize()": {
+			"Syntax": "**.Notarize**( *zipfilepath* : Text )->error : Object",
+			"Params": [
+				[
+					"zipfilepath",
+					"Text",
+					"->"
+				],
 				[
 					"error",
 					"Object",
@@ -1630,15 +1688,31 @@
 			"Summary": ""
 		},
 		"Zip()": {
-			"Syntax": "**.Zip**( *sourcepath* : Text; *targetpath* : Text )->error : Object",
+			"Syntax": "**.Zip**( *source* : Text; *target* : Text )->error : Object",
 			"Params": [
 				[
-					"sourcepath",
+					"source",
 					"Text",
 					"->"
 				],
 				[
-					"targetpath",
+					"target",
+					"Text",
+					"->"
+				],
+				[
+					"error",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"Staple()": {
+			"Syntax": "**.Staple**( *path* : Text )->error : Object",
+			"Params": [
+				[
+					"path",
 					"Text",
 					"->"
 				],
