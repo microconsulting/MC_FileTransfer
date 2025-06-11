@@ -192,7 +192,7 @@ Function deleteDirectory($targetpath : Text)->$success : Object
 	If (This:C1470._protocol#"SFTP")
 		$url:=$url+" -Q "+Char:C90(34)+"RMD "+$targetpath+Char:C90(34)
 	Else 
-		$url:=$url+" -Q "+Char:C90(34)+"-RMDIR "+$targetpath+Char:C90(34)
+		$url:=$url+" -Q "+Char:C90(34)+"-rmdir "+$targetpath+Char:C90(34)
 	End if 
 	$success:=This:C1470._runWorker($url)
 	If ($success.success)
@@ -208,7 +208,7 @@ Function deleteFile($targetpath : Text)->$success : Object
 	If (This:C1470._protocol#"SFTP")
 		$url:=$url+" -Q "+Char:C90(34)+"DELE "+$targetpath+Char:C90(34)
 	Else 
-		$url:=$url+" -Q "+Char:C90(34)+"-RM "+$targetpath+Char:C90(34)
+		$url:=$url+" -Q "+Char:C90(34)+"-rm "+$targetpath+Char:C90(34)
 	End if 
 	$success:=This:C1470._runWorker($url)
 	If ($success.success)
@@ -225,7 +225,7 @@ Function renameFile($sourcepath : Text; $targetpath : Text)->$success : Object
 	If (This:C1470._protocol#"SFTP")
 		$url:=$url+" -Q "+Char:C90(34)+"-RNFR "+$sourcepath+Char:C90(34)+" -Q "+Char:C90(34)+"-RNTO "+$targetpath+Char:C90(34)
 	Else 
-		$url:=$url+" -Q "+Char:C90(34)+"-RENAME "+$sourcepath+" "+$targetpath+Char:C90(34)
+		$url:=$url+" -Q "+Char:C90(34)+"-rename "+$sourcepath+" "+$targetpath+Char:C90(34)
 	End if 
 	$success:=This:C1470._runWorker($url)
 	If ($success.success)
