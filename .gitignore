@@ -1,12 +1,63 @@
-*.4dd
-*.4DD
-*.journal
-*.4DIndx
-*.Match
+# 4D project architecture
+######################
+Data
 Logs
-Project/DerivedData/
-*symbols.txt
+*/Project/DerivedData
+Trash
 userPreferences.*
-Libraries/
-Data/
-*buildAuto/
+BuildAppOM.4DSettings
+Final Application
+Client Server executable
+Default Data
+Macros v2
+Sauvegardes 4D
+Versioning
+Resources/Cache
+Settings/settings.4dSettings
+*/Libraries
+Archives
+Scripts/Icon*
+Replaced Files*
+Components/Cache
+Installeurs
+*_BuildAuto
+*_component/Resources/en.lproj/syntaxEN.json
+
+# Don't need the data file, indexes, symbols, or journal
+*.4DD
+*.Match
+*.4DB
+*.4DIndx
+*symbols.txt
+*.journal
+*.app
+*.match
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build related files #
+#######################
+*.icns
+*.ico
+
+# Allow #
+#######################
+#!/DataTestCases/*/*.4DD
+
+#!/Data/Démo/OM Business.4DD
+#!/Data/Démo/OM Finance.4DD
+#!/Data/Démo/BiblioMaker.4DD
+
+# Modifications #
+#######################
+# MK 20.12.22, added modifications section + ignored .Match files
+# SB 20.02.23, ignore Settings:settings.4dSettings
+# MK 26.01.24, added !/DataTestCases/*/*.4DD to allow .4DD files in that folder.
