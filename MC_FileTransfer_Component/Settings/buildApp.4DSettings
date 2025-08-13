@@ -38,7 +38,7 @@
       <ItemsCount>0</ItemsCount>
     </ArrayExcludedPluginID>
     <ArrayExcludedComponentName>
-      <ItemsCount>7</ItemsCount>
+      <ItemsCount>8</ItemsCount>
       <Item1>4D SVG</Item1>
       <Item2>4D ViewPro</Item2>
       <Item3>4D NetKit</Item3>
@@ -46,6 +46,7 @@
       <Item5>4D Mobile App Server</Item5>
       <Item6>4D Widgets</Item6>
       <Item7>4D Progress</Item7>
+      <Item8>4D AIKit</Item8>
     </ArrayExcludedComponentName>
     <ArrayExcludedModuleName>
       <ItemsCount>5</ItemsCount>
