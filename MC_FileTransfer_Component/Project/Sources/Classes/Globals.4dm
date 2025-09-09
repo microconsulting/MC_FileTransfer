@@ -18,4 +18,4 @@ property VERSION : Text
 singleton Class constructor
 	
 Function get VERSION : Text
-	return "8.0b2"
+	return "8.0b3"
