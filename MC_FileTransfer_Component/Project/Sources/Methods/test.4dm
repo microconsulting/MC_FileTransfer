@@ -27,11 +27,12 @@ Else
 	End if 
 End if 
 
+var $ftpRclone : cs:C1710.FileTransfer_rclone
 
-$ftp:=cs:C1710.FileTransfer_rclone.new("gdrive")
+$ftpRclone:=cs:C1710.FileTransfer_rclone.new("gdrive")
 $path:="/users/thomas/Desktop/rclone-v1.59.1-osx-arm64/rclone"
-$ftp.setPath($path)
-$result:=$ftp.getDirectoryListing("/")
+$ftpRclone.setPath($path)
+$result:=$ftpRclone.getDirectoryListing("/")
 If ($result.success)
 	$list:=$result.list
 	$text:=JSON Stringify:C1217($list)
@@ -42,18 +43,18 @@ Else
 End if 
 
 
-$ftp:=cs:C1710.FileTransfer_rclone.new("gdrive")
+$ftpRclone:=cs:C1710.FileTransfer_rclone.new("gdrive")
 $path:="/users/thomas/Desktop/rclone-v1.59.1-osx-arm64/rclone"
-$ftp.setPath($path)
+$ftpRclone.setPath($path)
 $progressid:="Download zipg"
 $checkstop:=New shared object:C1526("stop"; False:C215)
-$ftp.enableStopButton($checkstop)
-$ftp.useCallback(GetProgressCallback; $progressid)
+$ftpRclone.enableStopButton($checkstop)
+$ftpRclone.useCallback(GetProgressCallback; $progressid)
 
 $source:="/16-10_CookieBaseWebAuth.zip"
 $target:=System folder:C487(Desktop:K41:16)+"test.zip"
 $target:=Convert path system to POSIX:C1106($target)
-$result:=$ftp.download($source; $target)
+$result:=$ftpRclone.download($source; $target)
 
 // did user canceled?
 If ($checkstop.stop=True:C214)
